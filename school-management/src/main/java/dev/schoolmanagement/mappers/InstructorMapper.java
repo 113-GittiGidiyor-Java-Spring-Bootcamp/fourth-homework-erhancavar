@@ -1,4 +1,9 @@
 package dev.schoolmanagement.mappers;
 
-public interface InstructorMapper {
+import dev.schoolmanagement.DTO.InstructorDTO;
+import dev.schoolmanagement.entity.Instructor;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface InstructorMapper extends GenericMapper<Instructor, InstructorDTO> {
 }

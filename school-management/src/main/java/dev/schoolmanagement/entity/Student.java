@@ -1,6 +1,9 @@
 package dev.schoolmanagement.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,7 +12,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student extends AbstractEntity {
@@ -22,7 +24,6 @@ public class Student extends AbstractEntity {
     private Set<Course> courses;
 
     public void addCourses(Course course) {
-        courses.add(course);
-        course.getStudents().add(this);
+        this.courses.add(course);
     }
 }
