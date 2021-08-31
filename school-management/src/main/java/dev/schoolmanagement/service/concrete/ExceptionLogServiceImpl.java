@@ -3,10 +3,13 @@ package dev.schoolmanagement.service.concrete;
 import dev.schoolmanagement.entity.ExceptionLog;
 import dev.schoolmanagement.repository.ExceptionLogRepository;
 import dev.schoolmanagement.service.ExceptionLogService;
+import dev.schoolmanagement.utility.StringConstants;
 import lombok.AllArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -16,32 +19,28 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
     ExceptionLogRepository exceptionLogRepository;
 
     @Override
+    @Transactional
     public ExceptionLog save(ExceptionLog exceptionLog) {
-        return null;
+        return exceptionLogRepository.save(exceptionLog);
     }
 
     @Override
     public List<ExceptionLog> findAll() {
-        return null;
+        return exceptionLogRepository.findAll();
+    }
+
+    @Override
+    public List<ExceptionLog> findAllByCreatedDate(Local createdDate) {
+        return findAllByCreatedDate(createdDate);
     }
 
     @Override
     public ExceptionLog findById(long id) {
-        return null;
+        return exceptionLogRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(StringConstants.EXCEPTION_LOG_NOT_FOUND));
     }
 
     @Override
-    public void delete(ExceptionLog exceptionLog) {
-
-    }
-
-    @Override
-    public void deleteById(long id) {
-
-    }
-
-    @Override
-    public ExceptionLog update(ExceptionLog exceptionLog) {
-        return null;
+    public List<ExceptionLog> findAllByType(String type) {
+        return exceptionLogRepository.findAllByType(type);
     }
 }

@@ -1,8 +1,11 @@
 package dev.schoolmanagement.service.concrete;
 
 import dev.schoolmanagement.entity.Instructor;
+import dev.schoolmanagement.exceptions.EntityNotFoundException;
+import dev.schoolmanagement.exceptions.InstructorAlreadyExistsException;
 import dev.schoolmanagement.repository.InstructorRepository;
 import dev.schoolmanagement.service.InstructorService;
+import dev.schoolmanagement.utility.StringConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,32 +19,45 @@ public class InstructorServiceImpl implements InstructorService {
     InstructorRepository instructorRepository;
 
     @Override
+    @Transactional
     public Instructor save(Instructor instructor) {
-        return null;
+        if (instructorRepository.existsById(instructor.getId())) {
+            throw new InstructorAlreadyExistsException(StringConstants.INSTRUCTOR_ALREADY_EXISTS);
+        }
+        return instructorRepository.save(instructor);
     }
 
     @Override
     public List<Instructor> findAll() {
-        return null;
+        return instructorRepository.findAll();
     }
 
     @Override
     public Instructor findById(long id) {
-        return null;
+        return instructorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND));
     }
 
     @Override
     public void delete(Instructor instructor) {
-
+        if (!instructorRepository.existsById(instructor.getId())) {
+            throw new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND);
+        }
+        instructorRepository.delete(instructor);
     }
 
     @Override
     public void deleteById(long id) {
-
+        if (!instructorRepository.existsById(id)) {
+            throw new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND);
+        }
+        instructorRepository.deleteById(id);
     }
 
     @Override
     public Instructor update(Instructor instructor) {
-        return null;
+        if (!instructorRepository.existsById(instructor.getId())) {
+            throw new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND);
+        }
+        return instructorRepository.save(instructor);
     }
 }
