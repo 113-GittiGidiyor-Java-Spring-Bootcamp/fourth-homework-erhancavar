@@ -5,7 +5,7 @@ import dev.schoolmanagement.exceptions.EntityNotFoundException;
 import dev.schoolmanagement.exceptions.InstructorAlreadyExistsException;
 import dev.schoolmanagement.repository.InstructorRepository;
 import dev.schoolmanagement.service.InstructorService;
-import dev.schoolmanagement.utility.StringConstants;
+import dev.schoolmanagement.utility.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Transactional
     public Instructor save(Instructor instructor) {
         if (instructorRepository.existsById(instructor.getId())) {
-            throw new InstructorAlreadyExistsException(StringConstants.INSTRUCTOR_ALREADY_EXISTS);
+            throw new InstructorAlreadyExistsException(Constants.INSTRUCTOR_ALREADY_EXISTS);
         }
         return instructorRepository.save(instructor);
     }
@@ -34,13 +34,13 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Instructor findById(long id) {
-        return instructorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND));
+        return instructorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND));
     }
 
     @Override
     public void delete(Instructor instructor) {
         if (!instructorRepository.existsById(instructor.getId())) {
-            throw new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND);
+            throw new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND);
         }
         instructorRepository.delete(instructor);
     }
@@ -48,7 +48,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public void deleteById(long id) {
         if (!instructorRepository.existsById(id)) {
-            throw new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND);
+            throw new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND);
         }
         instructorRepository.deleteById(id);
     }
@@ -56,7 +56,7 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public Instructor update(Instructor instructor) {
         if (!instructorRepository.existsById(instructor.getId())) {
-            throw new EntityNotFoundException(StringConstants.INSTRUCTOR_NOT_FOUND);
+            throw new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND);
         }
         return instructorRepository.save(instructor);
     }

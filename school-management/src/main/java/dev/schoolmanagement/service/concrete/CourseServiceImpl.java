@@ -5,7 +5,7 @@ import dev.schoolmanagement.exceptions.CourseAlreadyExistsException;
 import dev.schoolmanagement.exceptions.EntityNotFoundException;
 import dev.schoolmanagement.repository.CourseRepository;
 import dev.schoolmanagement.service.CourseService;
-import dev.schoolmanagement.utility.StringConstants;
+import dev.schoolmanagement.utility.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public Course save(Course course) {
         if (courseRepository.existsById(course.getId())) {
-            throw new CourseAlreadyExistsException(StringConstants.COURSE_ALREADY_EXISTS);
+            throw new CourseAlreadyExistsException(Constants.COURSE_ALREADY_EXISTS);
         }
         return courseRepository.save(course);
     }
@@ -34,14 +34,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(long id) {
-        return courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(StringConstants.COURSE_NOT_FOUND));
+        return courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Constants.COURSE_NOT_FOUND));
     }
 
     @Override
     @Transactional
     public void delete(Course course) {
         if (!courseRepository.existsById(course.getId())) {
-            throw new EntityNotFoundException(StringConstants.COURSE_NOT_FOUND);
+            throw new EntityNotFoundException(Constants.COURSE_NOT_FOUND);
         }
         courseRepository.delete(course);
     }
@@ -50,7 +50,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public void deleteById(long id) {
         if (!courseRepository.existsById(id)) {
-            throw new EntityNotFoundException(StringConstants.COURSE_NOT_FOUND);
+            throw new EntityNotFoundException(Constants.COURSE_NOT_FOUND);
         }
         courseRepository.deleteById(id);
     }
@@ -59,7 +59,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public Course update(Course course) {
         if (courseRepository.existsById(course.getId())) {
-            throw new EntityNotFoundException(StringConstants.COURSE_NOT_FOUND);
+            throw new EntityNotFoundException(Constants.COURSE_NOT_FOUND);
         }
         return courseRepository.save(course);
     }

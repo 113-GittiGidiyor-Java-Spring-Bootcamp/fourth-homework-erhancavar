@@ -3,7 +3,7 @@ package dev.schoolmanagement.service.concrete;
 import dev.schoolmanagement.entity.ExceptionLog;
 import dev.schoolmanagement.repository.ExceptionLogRepository;
 import dev.schoolmanagement.service.ExceptionLogService;
-import dev.schoolmanagement.utility.StringConstants;
+import dev.schoolmanagement.utility.Constants;
 import lombok.AllArgsConstructor;
 import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
 
     @Override
     public ExceptionLog findById(long id) {
-        return exceptionLogRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(StringConstants.EXCEPTION_LOG_NOT_FOUND));
+        return exceptionLogRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(Constants.EXCEPTION_LOG_NOT_FOUND));
     }
 
     @Override
