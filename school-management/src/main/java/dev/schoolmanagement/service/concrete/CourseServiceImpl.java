@@ -1,6 +1,7 @@
 package dev.schoolmanagement.service.concrete;
 
 import dev.schoolmanagement.DTO.CourseDTO;
+import dev.schoolmanagement.exceptions.CourseAlreadyExistsException;
 import dev.schoolmanagement.exceptions.EntityNotFoundException;
 import dev.schoolmanagement.mappers.CourseMapper;
 import dev.schoolmanagement.repository.CourseRepository;
@@ -23,6 +24,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseDTO save(CourseDTO course) {
+        if(courseRepository.existsByCourseCode(course.getCourseCode())){
+            throw new CourseAlreadyExistsException(Constants.COURSE_ALREADY_EXISTS);
+        }
         return courseMapper.mapToDTO(courseRepository.save(courseMapper.mapToEntity(course)));
     }
 
