@@ -1,46 +1,57 @@
 package dev.schoolmanagement.service.concrete;
 
-import dev.schoolmanagement.entity.ExceptionLog;
+import dev.schoolmanagement.DTO.ExceptionLogDTO;
+import dev.schoolmanagement.mappers.ExceptionLogMapper;
 import dev.schoolmanagement.repository.ExceptionLogRepository;
 import dev.schoolmanagement.service.ExceptionLogService;
-import dev.schoolmanagement.utility.Constants;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
 public class ExceptionLogServiceImpl implements ExceptionLogService {
     ExceptionLogRepository exceptionLogRepository;
+    ExceptionLogMapper exceptionLogMapper;
 
     @Override
-    @Transactional
-    public ExceptionLog save(ExceptionLog exceptionLog) {
-        return exceptionLogRepository.save(exceptionLog);
+    public List<ExceptionLogDTO> findAllByCreationDate(Instant creationDate) {
+        return exceptionLogRepository.findAllByCreatedDate(creationDate)
+                .stream()
+                .map((e) -> exceptionLogMapper.mapToDTO(e))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<ExceptionLog> findAll() {
-        return exceptionLogRepository.findAll();
+    public List<ExceptionLogDTO> findAllByType(String type) {
+        return exceptionLogRepository.findAllByType(type)
+                .stream()
+                .map((e) -> exceptionLogMapper.mapToDTO(e))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<ExceptionLog> findAllByCreatedDate(Local createdDate) {
-        return findAllByCreatedDate(createdDate);
+    public ExceptionLogDTO save(ExceptionLogDTO exceptionLogDTO) {
+        return exceptionLogMapper.mapToDTO(exceptionLogRepository.save(exceptionLogMapper.mapToPersistable(exceptionLogDTO)));
     }
 
     @Override
-    public ExceptionLog findById(long id) {
-        return exceptionLogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Constants.EXCEPTION_LOG_NOT_FOUND));
+    public List<ExceptionLogDTO> findAll() {
+        return exceptionLogRepository.findAll()
+                .stream()
+                .map((e) -> exceptionLogMapper.mapToDTO(e))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<ExceptionLog> findAllByType(String type) {
-        return exceptionLogRepository.findAllByType(type);
+    public ExceptionLogDTO findById(long id) {
+        return exceptionLogMapper.mapToDTO(exceptionLogRepository.findById(id).orElseThrow(EntityNotFoundException::new));
     }
+
 }

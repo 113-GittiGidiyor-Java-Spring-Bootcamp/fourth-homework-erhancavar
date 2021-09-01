@@ -1,5 +1,6 @@
 package dev.schoolmanagement.exceptions;
 
+import dev.schoolmanagement.DTO.ExceptionLogDTO;
 import dev.schoolmanagement.DTO.response.ErrorResponse;
 import dev.schoolmanagement.DTO.response.ValidationErrorResponse;
 import dev.schoolmanagement.entity.ExceptionLog;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -91,7 +91,7 @@ public class GlobalExceptionHandler {
      * @param runtimeException Exception object to persist.
      */
     private void persistErrorLog(RuntimeException runtimeException) {
-        exceptionLogService.save(new ExceptionLog(runtimeException.getClass().getSimpleName(), runtimeException.getMessage()));
+        exceptionLogService.save(new ExceptionLogDTO(runtimeException.getClass().getSimpleName(), runtimeException.getMessage()));
     }
 
 }
