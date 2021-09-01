@@ -9,8 +9,6 @@ public interface BaseService<T> {
 
     T findById(long id);
 
-    void delete(T t);
-
     void deleteById(long id);
 
     T update(T t);

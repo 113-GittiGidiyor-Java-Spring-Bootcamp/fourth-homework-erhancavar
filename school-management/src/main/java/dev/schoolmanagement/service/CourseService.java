@@ -1,7 +1,7 @@
 package dev.schoolmanagement.service;
 
-import dev.schoolmanagement.entity.Course;
+import dev.schoolmanagement.DTO.CourseDTO;
 
-public interface CourseService extends BaseService<Course> {
+public interface CourseService extends BaseService<CourseDTO> {
 
 }

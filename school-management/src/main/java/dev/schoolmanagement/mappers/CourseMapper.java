@@ -5,6 +5,9 @@ import dev.schoolmanagement.entity.Course;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CourseMapper extends GenericMapper<Course,CourseDTO>{
+public interface CourseMapper {
+    Course mapToEntity(CourseDTO source);
+
+    CourseDTO mapToDTO(Course source);
 
 }

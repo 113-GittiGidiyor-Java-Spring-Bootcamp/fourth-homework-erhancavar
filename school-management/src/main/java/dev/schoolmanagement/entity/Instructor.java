@@ -1,5 +1,6 @@
 package dev.schoolmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Instructor extends AbstractEntity {
     private String name;
     private String phoneNumber;
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.MERGE)
+    @JsonIgnore
     private List<Course> courses = new ArrayList<>();
 
     // Utility method to add courses

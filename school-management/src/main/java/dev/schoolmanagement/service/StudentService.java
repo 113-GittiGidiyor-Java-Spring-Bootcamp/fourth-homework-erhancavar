@@ -1,7 +1,7 @@
 package dev.schoolmanagement.service;
 
-import dev.schoolmanagement.entity.Student;
+import dev.schoolmanagement.DTO.StudentDTO;
 
-public interface StudentService extends BaseService<Student> {
+public interface StudentService extends BaseService<StudentDTO> {
 
 }

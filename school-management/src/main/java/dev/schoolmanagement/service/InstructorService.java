@@ -1,7 +1,9 @@
 package dev.schoolmanagement.service;
 
-import dev.schoolmanagement.entity.Instructor;
+import dev.schoolmanagement.DTO.InstructorDTO;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface InstructorService extends BaseService<Instructor> {
+public interface InstructorService extends BaseService<InstructorDTO> {
+
 
 }
