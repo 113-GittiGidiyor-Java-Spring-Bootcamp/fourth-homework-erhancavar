@@ -1,8 +1,6 @@
 package dev.schoolmanagement.service.concrete;
 
 import dev.schoolmanagement.DTO.StudentDTO;
-import dev.schoolmanagement.entity.Student;
-import dev.schoolmanagement.exceptions.StudentAlreadyExistsException;
 import dev.schoolmanagement.mappers.StudentMapper;
 import dev.schoolmanagement.repository.StudentRepository;
 import dev.schoolmanagement.service.StudentService;
@@ -31,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentDTO> findAll() {
         return studentRepository.findAll()
                 .stream()
-                .map((e)-> studentMapper.mapToDTO(e))
+                .map((e) -> studentMapper.mapToDTO(e))
                 .collect(Collectors.toList());
     }
 

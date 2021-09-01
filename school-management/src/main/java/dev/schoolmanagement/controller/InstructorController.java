@@ -35,23 +35,23 @@ public class InstructorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InstructorDTO> findById(@PathVariable long id){
+    public ResponseEntity<InstructorDTO> findById(@PathVariable long id) {
         return ResponseEntity.ok(instructorService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeletionSuccess> delete(@PathVariable long id){
+    public ResponseEntity<DeletionSuccess> delete(@PathVariable long id) {
         instructorService.deleteById(id);
         return ResponseEntity.ok(new DeletionSuccess(id));
     }
 
     @PutMapping("/permanent-instructor")
-    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody PermanentInstructorDTO permanentInstructorDTO){
+    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody PermanentInstructorDTO permanentInstructorDTO) {
         return ResponseEntity.ok(new UpdateSuccess<>(instructorService.update(permanentInstructorDTO)));
     }
 
     @PutMapping("/visiting-researcher")
-    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody VisitingResearcherDTO visitingResearcherDTO){
+    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody VisitingResearcherDTO visitingResearcherDTO) {
         return ResponseEntity.ok(new UpdateSuccess<>(instructorService.update(visitingResearcherDTO)));
     }
 }

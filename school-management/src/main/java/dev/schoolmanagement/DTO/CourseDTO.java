@@ -1,6 +1,5 @@
 package dev.schoolmanagement.DTO;
 
-import dev.schoolmanagement.entity.Instructor;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +26,5 @@ public class CourseDTO {
     @Min(value = 1, message = "Cannot be lower then 1")
     private float creditScore;
     @ApiModelProperty(dataType = "Long", example = "12")
-    private Long instructorID;;
+    private Long instructorID;
 }

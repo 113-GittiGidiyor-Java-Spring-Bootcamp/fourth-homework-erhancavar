@@ -25,10 +25,11 @@ import java.util.stream.Collectors;
 public class InstructorServiceImpl implements InstructorService {
     InstructorRepository instructorRepository;
     InstructorMapper instructorMapper;
+
     @Override
     @Transactional
     public InstructorDTO save(InstructorDTO instructorDTO) {
-        if(instructorDTO instanceof VisitingResearcherDTO){
+        if (instructorDTO instanceof VisitingResearcherDTO) {
             return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToVisitingResearcher((VisitingResearcherDTO) instructorDTO)));
         }
         return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToPermanentInstructor((PermanentInstructorDTO) instructorDTO)));
@@ -40,7 +41,7 @@ public class InstructorServiceImpl implements InstructorService {
                 .stream()
                 .map(
                         (e) -> e instanceof PermanentInstructor ?
-                                instructorMapper.mapToDTO((PermanentInstructor) e):
+                                instructorMapper.mapToDTO((PermanentInstructor) e) :
                                 instructorMapper.mapToDTO((VisitingResearcher) e))
                 .collect(Collectors.toList());
     }
@@ -48,8 +49,8 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     public InstructorDTO findById(long id) {
         Instructor instructor = instructorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND));
-        return  instructor instanceof PermanentInstructor?
-                instructorMapper.mapToDTO((PermanentInstructor) instructor):
+        return instructor instanceof PermanentInstructor ?
+                instructorMapper.mapToDTO((PermanentInstructor) instructor) :
                 instructorMapper.mapToDTO((VisitingResearcher) instructor);
     }
 
@@ -67,7 +68,7 @@ public class InstructorServiceImpl implements InstructorService {
         if (!instructorRepository.existsById(instructor.getId())) {
             throw new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND);
         }
-        if(instructor instanceof PermanentInstructorDTO){
+        if (instructor instanceof PermanentInstructorDTO) {
             return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToPermanentInstructor((PermanentInstructorDTO) instructor)));
         }
         return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToVisitingResearcher((VisitingResearcherDTO) instructor)));

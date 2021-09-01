@@ -36,7 +36,7 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
 
     @Override
     public ExceptionLog findById(long id) {
-        return exceptionLogRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(Constants.EXCEPTION_LOG_NOT_FOUND));
+        return exceptionLogRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Constants.EXCEPTION_LOG_NOT_FOUND));
     }
 
     @Override

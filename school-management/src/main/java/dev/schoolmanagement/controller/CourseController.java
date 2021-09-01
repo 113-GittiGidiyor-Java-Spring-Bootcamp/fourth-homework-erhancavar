@@ -4,7 +4,6 @@ import dev.schoolmanagement.DTO.CourseDTO;
 import dev.schoolmanagement.DTO.response.CreationSuccess;
 import dev.schoolmanagement.DTO.response.DeletionSuccess;
 import dev.schoolmanagement.DTO.response.UpdateSuccess;
-import dev.schoolmanagement.mappers.CourseMapper;
 import dev.schoolmanagement.service.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
