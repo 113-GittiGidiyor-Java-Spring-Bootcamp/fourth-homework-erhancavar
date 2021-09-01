@@ -1,16 +1,13 @@
 package dev.schoolmanagement.DTO.response;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
+/**
+ * Main success response skeleton
+ */
 @Getter
-public class SuccessResponse {
-    @ApiModelProperty(example = "true", dataType = "Boolean")
-    private final boolean success = true;
-    @ApiModelProperty(example = "Course successfully saved", dataType = "String")
-    private final String message;
-
+public class SuccessResponse extends BaseResponse {
     public SuccessResponse(String message) {
-        this.message = message;
+        super(message, true);
     }
 }

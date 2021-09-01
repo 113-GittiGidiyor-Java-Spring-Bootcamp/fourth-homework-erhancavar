@@ -1,6 +1,7 @@
 package dev.schoolmanagement.service.concrete;
 
 import dev.schoolmanagement.DTO.StudentDTO;
+import dev.schoolmanagement.exceptions.EntityNotFoundException;
 import dev.schoolmanagement.mappers.StudentMapper;
 import dev.schoolmanagement.repository.StudentRepository;
 import dev.schoolmanagement.service.StudentService;
@@ -9,7 +10,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
