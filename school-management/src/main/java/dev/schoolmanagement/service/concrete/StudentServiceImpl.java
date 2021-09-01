@@ -6,6 +6,7 @@ import dev.schoolmanagement.mappers.StudentMapper;
 import dev.schoolmanagement.repository.StudentRepository;
 import dev.schoolmanagement.service.StudentService;
 import dev.schoolmanagement.utility.Constants;
+import dev.schoolmanagement.utility.UtilityMethods;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDTO save(StudentDTO student) {
+        UtilityMethods.validateAge(student.getBirthday());
         return studentMapper.mapToDTO(studentRepository.save(studentMapper.mapToPersistable(student)));
     }
 
