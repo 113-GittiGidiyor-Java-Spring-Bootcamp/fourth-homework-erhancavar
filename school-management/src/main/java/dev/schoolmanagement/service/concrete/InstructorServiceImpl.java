@@ -7,6 +7,7 @@ import dev.schoolmanagement.entity.Instructor;
 import dev.schoolmanagement.entity.PermanentInstructor;
 import dev.schoolmanagement.entity.VisitingResearcher;
 import dev.schoolmanagement.exceptions.EntityNotFoundException;
+import dev.schoolmanagement.exceptions.InstructorAlreadyExistsException;
 import dev.schoolmanagement.mappers.InstructorMapper;
 import dev.schoolmanagement.repository.InstructorRepository;
 import dev.schoolmanagement.service.InstructorService;
@@ -29,6 +30,9 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     @Transactional
     public InstructorDTO save(InstructorDTO instructorDTO) {
+        if(instructorRepository.existsByPhoneNumber(instructorDTO.getPhoneNumber())){
+            throw new InstructorAlreadyExistsException(Constants.INSTRUCTOR_ALREADY_EXISTS);
+            }
         if (instructorDTO instanceof VisitingResearcherDTO) {
             return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToVisitingResearcher((VisitingResearcherDTO) instructorDTO)));
         }
