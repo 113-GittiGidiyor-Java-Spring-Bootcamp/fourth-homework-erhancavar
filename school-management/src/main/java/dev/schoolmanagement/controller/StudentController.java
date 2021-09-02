@@ -6,6 +6,7 @@ import dev.schoolmanagement.DTO.response.CreationSuccess;
 import dev.schoolmanagement.DTO.response.DeletionSuccess;
 import dev.schoolmanagement.DTO.response.UpdateSuccess;
 import dev.schoolmanagement.service.StudentService;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDTO> findById(@PathVariable long id){
+    public ResponseEntity<StudentDTO> findById(@PathVariable @ApiParam(example = "5") long id){
         return ResponseEntity.ok(studentService.findById(id));
     }
 
@@ -35,13 +36,13 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeletionSuccess> delete(@PathVariable long id){
+    public ResponseEntity<DeletionSuccess> delete(@PathVariable @ApiParam(example = "5") long id){
         studentService.deleteById(id);
         return ResponseEntity.ok(new DeletionSuccess(id));
     }
 
     @PutMapping
-    public ResponseEntity<UpdateSuccess<StudentDTO>> update(@RequestBody StudentDTO studentDTODTO){
+    public ResponseEntity<UpdateSuccess<StudentDTO>> update(@RequestBody @Valid StudentDTO studentDTODTO){
         return ResponseEntity.ok(new UpdateSuccess<>(studentService.update(studentDTODTO)));
     }
 

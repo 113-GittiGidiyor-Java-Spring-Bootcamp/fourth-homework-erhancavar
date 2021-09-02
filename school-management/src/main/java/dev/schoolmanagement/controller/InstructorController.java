@@ -7,10 +7,12 @@ import dev.schoolmanagement.DTO.response.CreationSuccess;
 import dev.schoolmanagement.DTO.response.DeletionSuccess;
 import dev.schoolmanagement.DTO.response.UpdateSuccess;
 import dev.schoolmanagement.service.InstructorService;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,12 +22,12 @@ public class InstructorController {
     InstructorService instructorService;
 
     @PostMapping("/visiting-researcher")
-    public ResponseEntity<CreationSuccess<InstructorDTO>> saveVisitingResearcher(@RequestBody VisitingResearcherDTO instructorDTO) {
+    public ResponseEntity<CreationSuccess<InstructorDTO>> saveVisitingResearcher(@RequestBody @Valid VisitingResearcherDTO instructorDTO) {
         return ResponseEntity.ok(new CreationSuccess<>(instructorService.save(instructorDTO)));
     }
 
     @PostMapping("/permanent-instructor")
-    public ResponseEntity<CreationSuccess<InstructorDTO>> savePermanentInstructor(@RequestBody PermanentInstructorDTO instructorDTO) {
+    public ResponseEntity<CreationSuccess<InstructorDTO>> savePermanentInstructor(@RequestBody @Valid PermanentInstructorDTO instructorDTO) {
         return ResponseEntity.ok(new CreationSuccess<>(instructorService.save(instructorDTO)));
     }
 
@@ -35,23 +37,23 @@ public class InstructorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InstructorDTO> findById(@PathVariable long id) {
+    public ResponseEntity<InstructorDTO> findById(@PathVariable @ApiParam(example = "5") long id) {
         return ResponseEntity.ok(instructorService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeletionSuccess> delete(@PathVariable long id) {
+    public ResponseEntity<DeletionSuccess> delete(@PathVariable @ApiParam(example = "5") long id) {
         instructorService.deleteById(id);
         return ResponseEntity.ok(new DeletionSuccess(id));
     }
 
     @PutMapping("/permanent-instructor")
-    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody PermanentInstructorDTO permanentInstructorDTO) {
+    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody @Valid PermanentInstructorDTO permanentInstructorDTO) {
         return ResponseEntity.ok(new UpdateSuccess<>(instructorService.update(permanentInstructorDTO)));
     }
 
     @PutMapping("/visiting-researcher")
-    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody VisitingResearcherDTO visitingResearcherDTO) {
+    public ResponseEntity<UpdateSuccess<InstructorDTO>> update(@RequestBody @Valid VisitingResearcherDTO visitingResearcherDTO) {
         return ResponseEntity.ok(new UpdateSuccess<>(instructorService.update(visitingResearcherDTO)));
     }
 }
