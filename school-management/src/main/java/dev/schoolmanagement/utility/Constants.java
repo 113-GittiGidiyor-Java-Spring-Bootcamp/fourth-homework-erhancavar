@@ -12,4 +12,9 @@ public class Constants {
     public static final String INSTRUCTOR_ALREADY_EXISTS = "Instructor already exists.";
     public static final String COURSE_ALREADY_EXISTS = "Course already exists.";
 
+    // Validation
+    public static final String NAME_FORMAT_MESSAGE = "Should be longer then 2 chars and cannot be null.";
+    public static final String PHONE_NUMBER_MESSAGE = "Phone should be longer then 10 and shorter then 13 chars.";
+
+
 }
