@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -21,7 +20,6 @@ public class InstructorDTO {
     private long id;
     @ApiModelProperty(example = "Osman", dataType = "String")
     @NotBlank(message = Constants.NAME_FORMAT_MESSAGE)
-    @Min(value = 2, message = Constants.NAME_FORMAT_MESSAGE)
     private String name;
     @ApiModelProperty(example = "5549078095", dataType = "String")
     @NotBlank(message = Constants.PHONE_NUMBER_MESSAGE)

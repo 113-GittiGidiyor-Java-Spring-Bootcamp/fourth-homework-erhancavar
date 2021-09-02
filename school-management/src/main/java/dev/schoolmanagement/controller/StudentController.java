@@ -32,6 +32,7 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<CreationSuccess<StudentDTO>> save(@RequestBody @Valid StudentDTO studentDTO){
+        System.out.println(studentDTO.toString());
         return ResponseEntity.ok(new CreationSuccess<>(studentService.save(studentDTO)));
     }
 
