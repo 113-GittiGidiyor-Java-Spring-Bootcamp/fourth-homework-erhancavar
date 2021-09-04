@@ -1,5 +1,6 @@
 package dev.schoolmanagement.DTO;
 
+import dev.schoolmanagement.entity.Student;
 import dev.schoolmanagement.utility.Constants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,6 +10,7 @@ import lombok.Data;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 @Data
@@ -30,4 +32,9 @@ public class CourseDTO {
     private float creditScore;
     @ApiModelProperty(dataType = "Long", example = "12")
     private Long instructorID;
+    private Set<Student> students;
+
+    public void addStudents(Student student) {
+        this.students.add(student);
+    }
 }

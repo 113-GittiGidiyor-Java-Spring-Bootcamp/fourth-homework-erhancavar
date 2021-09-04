@@ -8,6 +8,7 @@ import dev.schoolmanagement.DTO.response.UpdateSuccess;
 import dev.schoolmanagement.service.StudentService;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/students")
 @AllArgsConstructor
+@Slf4j
 public class StudentController {
     StudentService studentService;
 
@@ -45,6 +47,10 @@ public class StudentController {
     @PutMapping
     public ResponseEntity<UpdateSuccess<StudentDTO>> update(@RequestBody @Valid StudentDTO studentDTODTO){
         return ResponseEntity.ok(new UpdateSuccess<>(studentService.update(studentDTODTO)));
+    }
+    @PutMapping("/enroll-course/{courseId}")
+    public ResponseEntity<UpdateSuccess<StudentDTO>> enrollCourse(@RequestParam Long studentId,@PathVariable Long courseId){
+        return ResponseEntity.ok(new UpdateSuccess<>(studentService.enrollCourse(studentId,courseId)));
     }
 
 }

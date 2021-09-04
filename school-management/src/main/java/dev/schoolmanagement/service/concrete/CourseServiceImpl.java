@@ -52,9 +52,15 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseDTO update(CourseDTO course) {
-        if (courseRepository.existsById(course.getId())) {
+        if (!courseRepository.existsById(course.getId())) {
             throw new EntityNotFoundException(Constants.COURSE_NOT_FOUND);
         }
         return courseMapper.mapToDTO(courseRepository.save(courseMapper.mapToEntity(course)));
+    }
+
+    @Override
+    public boolean checkVacancyStatus(Long courseId) {
+
+        return courseRepository.vacancyExists(courseId);
     }
 }

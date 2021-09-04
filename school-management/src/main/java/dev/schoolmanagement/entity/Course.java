@@ -13,6 +13,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Course extends AbstractEntity {
     private String name;
     private String courseCode;
@@ -21,7 +22,10 @@ public class Course extends AbstractEntity {
     @JsonIgnore
     private Instructor instructor;
     @ManyToMany(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JsonIgnore
+    @ToString.Exclude
     private Set<Student> students = new HashSet<>();
+
+
+
 }

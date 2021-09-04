@@ -7,6 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ExceptionLogMapper {
     ExceptionLog mapToPersistable(ExceptionLogDTO source);
-
     ExceptionLogDTO mapToDTO(ExceptionLog source);
 }
