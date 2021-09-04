@@ -42,6 +42,6 @@ public class CourseController {
 
     @PutMapping
     public ResponseEntity<UpdateSuccess<CourseDTO>> update(@RequestBody @Valid CourseDTO courseDTO) {
-        return ResponseEntity.ok(new UpdateSuccess<>(courseDTO));
+        return ResponseEntity.ok(new UpdateSuccess<>(courseService.update(courseDTO)));
     }
 }

@@ -12,6 +12,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.Instant;
 
+/**
+ * Base abstarct entity which hold mainly required id field
+ * along with creation and update dates. Since it is marked with MappedSuperClass annotation
+ * it is "transient".
+ * @author Erhan Cavdar.
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter

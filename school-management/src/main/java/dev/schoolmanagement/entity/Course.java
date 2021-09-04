@@ -25,7 +25,4 @@ public class Course extends AbstractEntity {
     @JsonIgnore
     @ToString.Exclude
     private Set<Student> students = new HashSet<>();
-
-
-
 }

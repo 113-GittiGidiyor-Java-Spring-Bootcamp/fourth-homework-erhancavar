@@ -1,5 +1,6 @@
 package dev.schoolmanagement.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.schoolmanagement.entity.Course;
 import dev.schoolmanagement.entity.Gender;
 import dev.schoolmanagement.utility.Constants;
@@ -30,5 +31,6 @@ public class StudentDTO {
     private LocalDate birthday;
     @ApiModelProperty(dataType = "Gender", example = "FEMALE")
     private Gender gender;
+    @JsonIgnore
     private Set<Course> courses;
 }

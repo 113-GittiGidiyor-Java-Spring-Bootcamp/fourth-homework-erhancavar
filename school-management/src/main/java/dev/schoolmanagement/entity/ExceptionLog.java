@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExceptionLog extends AbstractEntity {
+public class ExceptionLog extends BaseLog {
     private String type;
     private String message;
 }

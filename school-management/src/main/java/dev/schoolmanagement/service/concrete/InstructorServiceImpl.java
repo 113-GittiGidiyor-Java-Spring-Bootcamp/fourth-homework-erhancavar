@@ -19,7 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * InstructorService implementation class. All of its methods are declared
+ * readOnly at class level, writing methods are excluded by @Transactional
+ * annotation.
+ *
+ * @author Erhan Cavdar.
+ */
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
@@ -27,18 +33,24 @@ public class InstructorServiceImpl implements InstructorService {
     InstructorRepository instructorRepository;
     InstructorMapper instructorMapper;
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     @Transactional
     public InstructorDTO save(InstructorDTO instructorDTO) {
-        if(instructorRepository.existsByPhoneNumber(instructorDTO.getPhoneNumber())){
+        if (instructorRepository.existsByPhoneNumber(instructorDTO.getPhoneNumber())) {
             throw new InstructorAlreadyExistsException(Constants.INSTRUCTOR_ALREADY_EXISTS);
-            }
+        }
         if (instructorDTO instanceof VisitingResearcherDTO) {
             return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToVisitingResearcher((VisitingResearcherDTO) instructorDTO)));
         }
         return instructorMapper.mapToDTO(instructorRepository.save(instructorMapper.mapToPermanentInstructor((PermanentInstructorDTO) instructorDTO)));
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public List<InstructorDTO> findAll() {
         return instructorRepository.findAll()
@@ -50,6 +62,9 @@ public class InstructorServiceImpl implements InstructorService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public InstructorDTO findById(long id) {
         Instructor instructor = instructorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND));
@@ -58,7 +73,10 @@ public class InstructorServiceImpl implements InstructorService {
                 instructorMapper.mapToDTO((VisitingResearcher) instructor);
     }
 
-
+    /**
+     *{@inheritDoc}
+     */
+    @Transactional
     @Override
     public void deleteById(long id) {
         if (!instructorRepository.existsById(id)) {
@@ -67,6 +85,10 @@ public class InstructorServiceImpl implements InstructorService {
         instructorRepository.deleteById(id);
     }
 
+    /**
+     *{@inheritDoc}
+     */
+    @Transactional
     @Override
     public InstructorDTO update(InstructorDTO instructor) {
         if (!instructorRepository.existsById(instructor.getId())) {

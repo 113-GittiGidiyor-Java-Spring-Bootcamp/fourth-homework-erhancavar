@@ -1,5 +1,6 @@
 package dev.schoolmanagement.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.schoolmanagement.entity.Student;
 import dev.schoolmanagement.utility.Constants;
 import io.swagger.annotations.ApiModel;
@@ -30,10 +31,8 @@ public class CourseDTO {
     @ApiModelProperty(required = true, dataType = "Float", example = "4.0")
     @Min(value = 1, message = "Cannot be lower then 1")
     private float creditScore;
-    @ApiModelProperty(dataType = "Long", example = "12")
-    private Long instructorID;
+    @JsonIgnore
     private Set<Student> students;
-
     public void addStudents(Student student) {
         this.students.add(student);
     }
