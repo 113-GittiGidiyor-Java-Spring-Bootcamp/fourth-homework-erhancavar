@@ -3,6 +3,7 @@ package dev.schoolmanagement.service.concrete;
 import dev.schoolmanagement.DTO.CourseDTO;
 import dev.schoolmanagement.exceptions.CourseAlreadyExistsException;
 import dev.schoolmanagement.exceptions.EntityNotFoundException;
+import dev.schoolmanagement.exceptions.NonNullableException;
 import dev.schoolmanagement.mappers.CourseMapper;
 import dev.schoolmanagement.repository.CourseRepository;
 import dev.schoolmanagement.service.CourseService;
@@ -35,9 +36,9 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public CourseDTO save(CourseDTO course) {
         if(course == null){
-            throw new
+            throw new NonNullableException("Course cannot be null.");
         }
-        if (courseRepository.existsByCourseCode(course.getCourseCode()) ||courseRepository.existsById(course.getId())) {
+        else if (courseRepository.existsByCourseCode(course.getCourseCode()) ||courseRepository.existsById(course.getId())) {
             throw new CourseAlreadyExistsException(Constants.COURSE_ALREADY_EXISTS);
         }
         System.out.println(courseMapper.mapToEntity(course));
@@ -78,7 +79,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseDTO update(CourseDTO course) {
-        if (!courseRepository.existsById(course.getId())) {
+        if (course == null){
+            throw new NonNullableException("Course cannot be null");
+        }
+        else if (!courseRepository.existsById(course.getId())) {
             throw new EntityNotFoundException(Constants.COURSE_NOT_FOUND);
         }
         return courseMapper.mapToDTO(courseRepository.save(courseMapper.mapToEntity(course)));

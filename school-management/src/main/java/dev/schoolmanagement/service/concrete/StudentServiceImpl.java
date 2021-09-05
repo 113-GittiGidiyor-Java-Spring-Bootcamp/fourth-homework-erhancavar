@@ -4,6 +4,7 @@ import dev.schoolmanagement.DTO.CourseDTO;
 import dev.schoolmanagement.DTO.StudentDTO;
 import dev.schoolmanagement.entity.Student;
 import dev.schoolmanagement.exceptions.EntityNotFoundException;
+import dev.schoolmanagement.exceptions.NonNullableException;
 import dev.schoolmanagement.exceptions.StudentNumberForOneCourseExceededException;
 import dev.schoolmanagement.mappers.CourseMapper;
 import dev.schoolmanagement.mappers.StudentMapper;
@@ -42,6 +43,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public StudentDTO save(StudentDTO student) {
+        if (student == null){
+            throw new NonNullableException("Student cannot be null");
+        }
         UtilityMethods.validateAge(student.getBirthday());
         return studentMapper.mapToDTO(studentRepository.save(studentMapper.mapToPersistable(student)));
     }
@@ -81,6 +85,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public StudentDTO update(StudentDTO student) {
+        if (student == null){
+            throw new NonNullableException("Student cannot be null");
+        }
+        else
         if (!studentRepository.existsById(student.getId())) {
             throw new EntityNotFoundException(Constants.STUDENT_NOT_FOUND);
         }

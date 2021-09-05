@@ -8,6 +8,7 @@ import dev.schoolmanagement.entity.PermanentInstructor;
 import dev.schoolmanagement.entity.VisitingResearcher;
 import dev.schoolmanagement.exceptions.EntityNotFoundException;
 import dev.schoolmanagement.exceptions.InstructorAlreadyExistsException;
+import dev.schoolmanagement.exceptions.NonNullableException;
 import dev.schoolmanagement.mappers.InstructorMapper;
 import dev.schoolmanagement.repository.InstructorRepository;
 import dev.schoolmanagement.service.InstructorService;
@@ -39,7 +40,10 @@ public class InstructorServiceImpl implements InstructorService {
     @Override
     @Transactional
     public InstructorDTO save(InstructorDTO instructorDTO) {
-        if (instructorRepository.existsByPhoneNumber(instructorDTO.getPhoneNumber())) {
+        if (instructorDTO == null){
+            throw new NonNullableException("Instructor cannot be null");
+        }
+        else if (instructorRepository.existsByPhoneNumber(instructorDTO.getPhoneNumber())) {
             throw new InstructorAlreadyExistsException(Constants.INSTRUCTOR_ALREADY_EXISTS);
         }
         if (instructorDTO instanceof VisitingResearcherDTO) {
@@ -91,7 +95,10 @@ public class InstructorServiceImpl implements InstructorService {
     @Transactional
     @Override
     public InstructorDTO update(InstructorDTO instructor) {
-        if (!instructorRepository.existsById(instructor.getId())) {
+        if (instructor == null){
+            throw new NonNullableException("Instructor cannot be null");
+        }
+        else if (!instructorRepository.existsById(instructor.getId())) {
             throw new EntityNotFoundException(Constants.INSTRUCTOR_NOT_FOUND);
         }
         if (instructor instanceof PermanentInstructorDTO) {
