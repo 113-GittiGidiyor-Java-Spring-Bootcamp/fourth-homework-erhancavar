@@ -37,6 +37,13 @@ public class GlobalExceptionHandler {
         bindingResult.getFieldErrors().forEach((e) -> errors.put(e.getField(),e.getDefaultMessage()));
         return new ResponseEntity<ValidationErrorResponse>(new ValidationErrorResponse(HttpStatus.NOT_ACCEPTABLE.value(),errors), HttpStatus.NOT_ACCEPTABLE);
     }
+    // Handling null fields & parameters
+    @ExceptionHandler(NonNullableException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public ResponseEntity<ValidationErrorResponse> handleException(NonNullableException exception){
+        this.persistErrorLog(exception);
+        return new ResponseEntity<ValidationErrorResponse>(new ErrorResponse(exception.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
+    }
 
     // Handle entity not found
     @ExceptionHandler(EntityNotFoundException.class)

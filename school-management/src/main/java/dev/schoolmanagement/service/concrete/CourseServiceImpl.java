@@ -34,6 +34,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public CourseDTO save(CourseDTO course) {
+        if(course == null){
+            throw new
+        }
         if (courseRepository.existsByCourseCode(course.getCourseCode()) ||courseRepository.existsById(course.getId())) {
             throw new CourseAlreadyExistsException(Constants.COURSE_ALREADY_EXISTS);
         }
